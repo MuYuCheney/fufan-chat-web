@@ -6,7 +6,7 @@
 
 ## ⚡ Introduction
 
-Fufan Chat is a free and open source middle and background management system basic solution, based on mainstream framework such as Vue3, TypeScript, Element Plus, Pinia and Vite
+Fufan Chat is a large model chat tool developed based on mainstream technologies such as Vue3, TypeScript, Element Plus, Pinia, and Vite
 
 <!-- - Vue Cli 5.x: [v3-admin](https://github.com/un-pany/v3-admin)
 - Electron desktop: [v3-electron-vite](https://github.com/un-pany/v3-electron-vite)
@@ -17,7 +17,7 @@ China repository: [Gitee](https://gitee.com/un-pany/v3-admin-vite) -->
 
 - Chinese documentation: [link](https://juejin.cn/post/7089377403717287972)
 - Chinese getting started tutorial: [link](https://juejin.cn/column/7207659644487139387) -->
-<!-- 
+<!--
 ## 📺 Online preview
 
 | Location     | account             | Link                                            |

@@ -1,12 +1,12 @@
 <div align="center">
   <img alt="Fufan Chat Logo" width="120" height="120" src="./src/assets/layouts/icons8-chatgpt-192.png">
-  <h1>Fufan Chat Vite</h1>
+  <h1>Fufan Chat</h1>
   <span><a href="./README.md">English</a> | 中文</span>
 </div>
 
 ## ⚡ 简介
 
-Fufan Chat 是一个免费开源的中后台管理系统基础解决方案，基于 Vue3、TypeScript、Element Plus、Pinia 和 Vite 等主流技术
+Fufan Chat 是一个基于 Vue3、TypeScript、Element Plus、Pinia 和 Vite 等主流技术研发的大模型聊天工具
 
 <!-- - Vue Cli 5.x 版: [v3-admin](https://github.com/un-pany/v3-admin)
 - Electron 桌面版: [v3-electron-vite](https://github.com/un-pany/v3-electron-vite)

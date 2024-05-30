@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router"
 import { useUserStore } from "@/store/modules/user"
+import { ChatSquare } from "@element-plus/icons-vue"
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -15,7 +16,9 @@ function logout() {
   <div class="app-chat">
     <el-container class="layout-container">
       <el-aside width="268px" class="layout-aside">
-        <el-input placeholder="新建对话" />
+        <div class="layout-aside-main">
+          <el-button type="primary" plain :icon="ChatSquare" class="create-chat-btn">新建对话</el-button>
+        </div>
         <el-button @click="logout" class="logout-btn">退出登陆</el-button>
       </el-aside>
       <el-container>
@@ -29,6 +32,8 @@ function logout() {
 </template>
 
 <style lang="scss" scoped>
+$btn-width-percent-100: 100%;
+
 .app-chat {
   width: 100%;
   height: 100%;
@@ -38,6 +43,16 @@ function logout() {
 }
 .layout-aside {
   padding: 20px 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+
+  .layout-aside-main {
+    flex: 1;
+    overflow: auto;
+    .create-chat-btn {
+      width: $btn-width-percent-100;
+    }
+  }
 }
 .main {
   background-color: #fff;
@@ -46,9 +61,6 @@ function logout() {
   padding: 16px;
 }
 .logout-btn {
-  width: 248px;
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
+  width: $btn-width-percent-100;
 }
 </style>
