@@ -1,36 +1,36 @@
 <div align="center">
-  <img alt="Fufan Chat Logo" width="120" height="120" src="./src/assets/layouts/logo.png">
+  <img alt="Fufan Chat Logo" width="120" height="120" src="./src/assets/layouts/icons8-chatgpt-192.png">
   <h1>Fufan Chat</h1>
   <span>English | <a href="./README.zh-CN.md">中文</a></span>
 </div>
 
 ## ⚡ Introduction
 
-V3 Admin Vite is a free and open source middle and background management system basic solution, based on mainstream framework such as Vue3, TypeScript, Element Plus, Pinia and Vite
+Fufan Chat is a free and open source middle and background management system basic solution, based on mainstream framework such as Vue3, TypeScript, Element Plus, Pinia and Vite
 
-- Vue Cli 5.x: [v3-admin](https://github.com/un-pany/v3-admin)
+<!-- - Vue Cli 5.x: [v3-admin](https://github.com/un-pany/v3-admin)
 - Electron desktop: [v3-electron-vite](https://github.com/un-pany/v3-electron-vite)
 
-China repository: [Gitee](https://gitee.com/un-pany/v3-admin-vite)
+China repository: [Gitee](https://gitee.com/un-pany/v3-admin-vite) -->
 
-## 📚 Document
+<!-- ## 📚 Document
 
 - Chinese documentation: [link](https://juejin.cn/post/7089377403717287972)
-- Chinese getting started tutorial: [link](https://juejin.cn/column/7207659644487139387)
-
+- Chinese getting started tutorial: [link](https://juejin.cn/column/7207659644487139387) -->
+<!-- 
 ## 📺 Online preview
 
 | Location     | account             | Link                                            |
 | ------------ | ------------------- | ----------------------------------------------- |
-| github-pages | `admin` or `editor` | [link](https://un-pany.github.io/v3-admin-vite) |
+| github-pages | `admin` or `editor` | [link](https://un-pany.github.io/v3-admin-vite) | -->
 
-## ❤️ Generate electricity with love
+<!-- ## ❤️ Generate electricity with love
 
 - **Completely free**：But hopefully you order a star !!!
 - **Very concise**：No complicated encapsulation, no complicated type gymnastics, out of the box
 - **Detailed annotations**：Each configuration item is written with as detailed comments as possible
 - **Latest dependencies**: Regularly update all third-party dependencies to the latest version
-- **Very specification**: The code style is unified, the naming style is unified, and the comment style is unified
+- **Very specification**: The code style is unified, the naming style is unified, and the comment style is unified -->
 
 ## Feature
 
@@ -69,10 +69,10 @@ China repository: [Gitee](https://gitee.com/un-pany/v3-admin-vite)
 3. pnpm version 8.x or latest
 
 # clone
-git clone https://github.com/un-pany/v3-admin-vite.git
+git clone https://github.com/MuYuCheney/fufan-chat-web.git
 
 # enter the project directory
-cd v3-admin-vite
+cd fufan-chat-web
 
 # install dependencies
 pnpm i
@@ -127,34 +127,34 @@ pnpm test
 - `types` Type definition
 - `wip` In development
 
-## Project preview
+<!-- ## Project preview
 
 ![preview1.png](./src/assets/docs/preview1.png)
 ![preview2.png](./src/assets/docs/preview2.png)
-![preview3.png](./src/assets/docs/preview3.png)
+![preview3.png](./src/assets/docs/preview3.png) -->
 
-## 💕 Contributors
+<!-- ## 💕 Contributors
 
-Thanks to all the contributors!
+Thanks to all the contributors! -->
 
-<a href="https://github.com/un-pany/v3-admin-vite/graphs/contributors">
+<!-- <a href="https://github.com/un-pany/v3-admin-vite/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=un-pany/v3-admin-vite" />
-</a>
+</a> -->
 
-## 💕 Thanks star
+<!-- ## 💕 Thanks star
 
-Small projects are not easy to get a star, if you like this project, welcome to support a star! This is the only motivation for the author to maintain it on an ongoing basis (whisper: it's free after all)
+Small projects are not easy to get a star, if you like this project, welcome to support a star! This is the only motivation for the author to maintain it on an ongoing basis (whisper: it's free after all) -->
 
-## ☕ Donate
+<!-- ## ☕ Donate
 
-[See how to donate](https://github.com/un-pany/v3-admin-vite/issues/69)
+[See how to donate](https://github.com/un-pany/v3-admin-vite/issues/69) -->
 
-## Group
+<!-- ## Group
 
-[See how to join a group chat](https://github.com/un-pany/v3-admin-vite/issues/191)
+[See how to join a group chat](https://github.com/un-pany/v3-admin-vite/issues/191) -->
 
-## 📄 License
+<!-- ## 📄 License
 
 [MIT](./LICENSE)
 
-Copyright (c) 2022-present [pany](https://github.com/pany-ang)
+Copyright (c) 2022-present [pany](https://github.com/pany-ang) -->

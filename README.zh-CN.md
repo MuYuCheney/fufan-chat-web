@@ -1,36 +1,36 @@
 <div align="center">
-  <img alt="Fufan Chat Logo" width="120" height="120" src="./src/assets/layouts/logo.png">
+  <img alt="Fufan Chat Logo" width="120" height="120" src="./src/assets/layouts/icons8-chatgpt-192.png">
   <h1>Fufan Chat Vite</h1>
   <span><a href="./README.md">English</a> | 中文</span>
 </div>
 
 ## ⚡ 简介
 
-V3 Admin Vite 是一个免费开源的中后台管理系统基础解决方案，基于 Vue3、TypeScript、Element Plus、Pinia 和 Vite 等主流技术
+Fufan Chat 是一个免费开源的中后台管理系统基础解决方案，基于 Vue3、TypeScript、Element Plus、Pinia 和 Vite 等主流技术
 
-- Vue Cli 5.x 版: [v3-admin](https://github.com/un-pany/v3-admin)
+<!-- - Vue Cli 5.x 版: [v3-admin](https://github.com/un-pany/v3-admin)
 - Electron 桌面版: [v3-electron-vite](https://github.com/un-pany/v3-electron-vite)
 
-国内仓库：[Gitee](https://gitee.com/un-pany/v3-admin-vite)
+国内仓库：[Gitee](https://gitee.com/un-pany/v3-admin-vite) -->
 
-## 📚 文档
+<!-- ## 📚 文档
 
 - 中文文档：[链接](https://juejin.cn/post/7089377403717287972)
-- 手摸手教程：[链接](https://juejin.cn/column/7207659644487139387)
+- 手摸手教程：[链接](https://juejin.cn/column/7207659644487139387) -->
 
-## 📺 在线预览
+<!-- ## 📺 在线预览
 
 | 位置         | 账号            | 链接                                            |
 | ------------ | --------------- | ----------------------------------------------- |
-| github-pages | admin 或 editor | [链接](https://un-pany.github.io/v3-admin-vite) |
+| github-pages | admin 或 editor | [链接](https://un-pany.github.io/v3-admin-vite) | -->
 
-## ❤️ 用爱发电
+<!-- ## ❤️ 用爱发电
 
 - **完全免费**：但希望你点一个 star ！！！
 - **非常简洁**：没有复杂的封装，没有复杂的类型体操，开箱即用
 - **详细的注释**：各个配置项都写有尽可能详细的注释
 - **最新的依赖**: 定期更新所有三方依赖至最新版
-- **有一点规整**: 代码风格统一，命名风格统一，注释风格统一
+- **有一点规整**: 代码风格统一，命名风格统一，注释风格统一 -->
 
 ## 特性
 
@@ -69,10 +69,10 @@ V3 Admin Vite 是一个免费开源的中后台管理系统基础解决方案，
 3. pnpm 版本 8.x 或最新版
 
 # 克隆项目
-git clone https://github.com/un-pany/v3-admin-vite.git
+git clone https://github.com/MuYuCheney/fufan-chat-web.git
 
 # 进入项目目录
-cd v3-admin-vite
+cd fufan-chat-web
 
 # 安装依赖
 pnpm i
@@ -127,34 +127,34 @@ pnpm test
 - `types` 类型定义文件更改
 - `wip` 开发中
 
-## 项目预览图
+<!-- ## 项目预览图
 
 ![preview1.png](./src/assets/docs/preview1.png)
 ![preview2.png](./src/assets/docs/preview2.png)
-![preview3.png](./src/assets/docs/preview3.png)
+![preview3.png](./src/assets/docs/preview3.png) -->
 
-## 💕 贡献者
+<!-- ## 💕 贡献者
 
-感谢所有的贡献者！
+感谢所有的贡献者！ -->
 
-<a href="https://github.com/un-pany/v3-admin-vite/graphs/contributors">
+<!-- <a href="https://github.com/un-pany/v3-admin-vite/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=un-pany/v3-admin-vite" />
-</a>
+</a> -->
 
-## 💕 感谢 Star
+<!-- ## 💕 感谢 Star
 
-小项目获取 star 不易，如果你喜欢这个项目的话，欢迎支持一个 star！这是作者持续维护的唯一动力（小声：毕竟是免费的）
+小项目获取 star 不易，如果你喜欢这个项目的话，欢迎支持一个 star！这是作者持续维护的唯一动力（小声：毕竟是免费的） -->
 
-## ☕ Donate
+<!-- ## ☕ Donate
 
-[查看捐赠方式](https://github.com/un-pany/v3-admin-vite/issues/69)
+[查看捐赠方式](https://github.com/un-pany/v3-admin-vite/issues/69) -->
 
-## 可有可无的群
+<!-- ## 可有可无的群
 
-[查看进群方式](https://github.com/un-pany/v3-admin-vite/issues/191)
+[查看进群方式](https://github.com/un-pany/v3-admin-vite/issues/191) -->
 
-## 📄 License
+<!-- ## 📄 License
 
 [MIT](./LICENSE)
 
-Copyright (c) 2022-present [pany](https://github.com/pany-ang)
+Copyright (c) 2024-present [pany](https://github.com/pany-ang) -->
