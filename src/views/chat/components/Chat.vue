@@ -2,9 +2,16 @@
 import { useRouter } from "vue-router"
 import { useUserStore } from "@/store/modules/user"
 import { ChatSquare } from "@element-plus/icons-vue"
+import { ref } from "vue"
+
+interface IHistoryItem {
+  id: number
+  name: string
+}
 
 const router = useRouter()
 const userStore = useUserStore()
+const historys = ref<IHistoryItem[]>([{ id: 1, name: "新对话" }])
 
 function logout() {
   userStore.logout()
@@ -18,6 +25,10 @@ function logout() {
       <el-aside width="268px" class="layout-aside">
         <div class="layout-aside-main">
           <el-button type="primary" plain :icon="ChatSquare" class="create-chat-btn">新建对话</el-button>
+          <el-text class="history-label">历史记录</el-text>
+          <ul class="history-list">
+            <li v-for="item in historys" :key="item.id">{{ item.name }}</li>
+          </ul>
         </div>
         <el-button @click="logout" class="logout-btn">退出登陆</el-button>
       </el-aside>
@@ -51,6 +62,24 @@ $btn-width-percent-100: 100%;
     overflow: auto;
     .create-chat-btn {
       width: $btn-width-percent-100;
+    }
+
+    .history-label {
+      margin: 16px 0 0;
+      display: inline-block;
+    }
+
+    .history-list {
+      padding-inline-start: 0;
+      > li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 36px;
+        background: var(--el-color-primary-light-9);
+        margin: 8px;
+        color: var(--el-color-primary);
+      }
     }
   }
 }
