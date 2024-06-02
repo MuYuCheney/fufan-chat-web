@@ -62,6 +62,7 @@ export const constantRoutes: RouteRecordRaw[] = [
       }
     ]
   },
+  // AI Chat
   {
     path: "/",
     // component: Layouts,

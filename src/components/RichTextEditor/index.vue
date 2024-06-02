@@ -5,14 +5,6 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  value?: string
-  send?(value: string): void
-  editorWrap?: string
-}
-
-const props = defineProps<Props>()
-
 import { onMounted } from "vue"
 import "quill/dist/quill.snow.css"
 
@@ -26,6 +18,14 @@ import Header from "quill/formats/header"
 // import Syntax from "quill/modules/syntax"
 import Keyboard from "quill/modules/keyboard"
 
+interface Props {
+  value?: string
+  send?(value: string): void
+  editorWrap?: string
+}
+
+const props = defineProps<Props>()
+
 Quill.register({
   "modules/toolbar": Toolbar,
   "themes/snow": Snow,
@@ -36,11 +36,14 @@ Quill.register({
   "modules/keyboard": Keyboard
 })
 
-let quillInstance = null
+let quillInstance: Quill | null = null
 
 function handler() {
+  if (!quillInstance) {
+    return
+  }
   const inputValue = quillInstance.getText()
-  quillInstance.setContents("")
+  quillInstance.setText("")
   props.send?.(inputValue)
   return false
 }

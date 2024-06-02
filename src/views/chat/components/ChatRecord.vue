@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { useUserStore } from "@/store/modules/user"
 import systemPhoto from "@/assets/layouts/icons8-chatgpt-96.png"
+import { EChatType } from "./Enum"
 
-enum EChatType {
-  SYSTEM = "SYSTEM",
-  USER = "USER"
-}
-interface IChatRecord {
+export interface IChatRecord {
   type: EChatType
   id: number
   content: string
