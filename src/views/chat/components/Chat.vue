@@ -5,7 +5,7 @@ import { Plus } from "@element-plus/icons-vue"
 import { ref, nextTick } from "vue"
 import QuillEditor from "@/components/RichTextEditor/index.vue"
 import ChatRecord from "./ChatRecord.vue"
-import type { IChatRecord } from "./ChatRecord.vue"
+import type { TChatRecordItem } from "./ChatRecord.vue"
 import { EChatType } from "./Enum"
 
 interface IHistoryItem {
@@ -16,11 +16,13 @@ interface IHistoryItem {
 const router = useRouter()
 const userStore = useUserStore()
 const historys = ref<IHistoryItem[]>([{ id: 1, name: "新对话" }])
-const chatRecords = ref<IChatRecord[]>([])
+const chatRecords = ref<TChatRecordItem[]>([])
 const chatRecordsRef = ref<HTMLDivElement | null>(null)
 
 const inputValue = ref<string>("")
 let chatId: number = 0
+let pasue: boolean = true
+// let i = 0
 
 // 滚动到底部
 function onScrollBottom() {
@@ -32,26 +34,63 @@ function onScrollBottom() {
   })
 }
 
-// 发送消息
-function onSend(val: string) {
-  chatRecords.value.push({
-    type: EChatType.USER,
-    id: ++chatId,
-    time: new Date().getTime().toString(),
-    content: val
+// 模拟AI输出逐字返回
+async function getContent(val: string) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(val)
+    }, 60)
   })
-  onScrollBottom()
-  setTimeout(() => {
-    chatRecords.value.push({
-      type: EChatType.SYSTEM,
-      id: ++chatId,
-      time: new Date().getTime().toString(),
-      content: `有什么可以帮你的吗 ${val} 访问密码不正确或为空，请前往登录页输入正确的访问密码，或者在设置页填入你自己的 OpenAI API Key。`
-    })
-    onScrollBottom()
-  }, 100)
 }
 
+// 回答逐字渲染
+async function onAnswer(answer: string) {
+  let i = 0
+  let text = pasue ? undefined : answer[i]
+  while (text !== undefined) {
+    if (pasue) {
+      break
+    }
+    const res = await getContent(text)
+    chatRecords.value.map(async (item) => {
+      if (item[1].id === chatId && text) {
+        item[1].content += res
+        text = answer[++i]
+        onScrollBottom()
+      }
+    })
+  }
+}
+
+// 发送消息
+function onSend(val: string) {
+  if (!val.trim()) {
+    return
+  }
+  pasue = true
+  const id = ++chatId
+  chatRecords.value.push([
+    {
+      type: EChatType.USER,
+      id,
+      time: new Date().getTime().toString(),
+      content: val
+    },
+    {
+      type: EChatType.SYSTEM,
+      id,
+      time: new Date().getTime().toString(),
+      content: ""
+    }
+  ])
+  onScrollBottom()
+  const answer = `有什么可以帮你的吗 ${val} 访问密码不正确或为空，请前往登录页输入正确的访问密码，或者在设置页填入你自己的 OpenAI API Key。`
+  pasue = false
+  // i = 0
+  onAnswer(answer)
+}
+
+// 推出登陆
 function logout() {
   userStore.logout()
   router.push("/login")
@@ -76,7 +115,7 @@ function logout() {
         <el-main class="main">
           <div class="main-center">
             <div class="chat-records" ref="chatRecordsRef">
-              <ChatRecord v-for="record in chatRecords" :key="record.id" :data="record" />
+              <ChatRecord v-for="(record, index) in chatRecords" :key="index" :data="record" />
             </div>
             <QuillEditor class="quill-editor" :value="inputValue" :send="onSend" />
           </div>
