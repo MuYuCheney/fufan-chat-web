@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, reactive } from "vue"
 import { Plus, Edit, Delete } from "@element-plus/icons-vue"
 import { ElMessage, ElMessageBox } from "element-plus"
 // import { useUserStore } from "@/store/modules/user"
@@ -23,6 +23,11 @@ const historys = ref<IHistoryItem[]>([
 ])
 const hoverId = ref<number>()
 const selectId = ref<number>(1)
+const editChatInfo = reactive<IHistoryItem>({
+  id: 0,
+  name: ""
+})
+const dialogVisible = ref<boolean>(false)
 
 // 点击聊天历史
 function onClickChatHistory(id: number) {
@@ -75,6 +80,34 @@ function onConfirmDeleteChatHistroy(id: number) {
     onDeleteChatHistory(id)
   })
 }
+
+// 打开编辑弹框
+function onOpenEditChatTitleDialog(chatInfo: IHistoryItem) {
+  editChatInfo.id = chatInfo.id
+  editChatInfo.name = chatInfo.name
+  dialogVisible.value = true
+}
+
+// 关闭编辑弹框
+function onCloseEditChatTitleDialog() {
+  editChatInfo.id = 0
+  editChatInfo.name = ""
+  dialogVisible.value = false
+}
+
+// 修改聊天标题
+function onSaveChatTitle() {
+  historys.value.map((item) => {
+    if (item.id === editChatInfo.id) {
+      item.name = editChatInfo.name
+    }
+  })
+  ElMessage({
+    type: "success",
+    message: "修改成功"
+  })
+  onCloseEditChatTitleDialog()
+}
 </script>
 
 <template>
@@ -92,7 +125,7 @@ function onConfirmDeleteChatHistroy(id: number) {
       >
         <span class="chat-title">{{ item.name }}</span>
         <span class="operate" v-show="hoverId === item.id" @click="(e) => e.stopPropagation()">
-          <el-button type="primary" link :icon="Edit" />
+          <el-button type="primary" link :icon="Edit" @click="() => onOpenEditChatTitleDialog(item)" />
           <el-button
             type="primary"
             link
@@ -104,6 +137,15 @@ function onConfirmDeleteChatHistroy(id: number) {
         </span>
       </li>
     </ul>
+    <el-dialog v-model="dialogVisible" title="编辑" width="30%" :before-close="onCloseEditChatTitleDialog">
+      <el-input v-model="editChatInfo.name" />
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="onCloseEditChatTitleDialog">取消</el-button>
+          <el-button type="primary" @click="onSaveChatTitle">确认</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
