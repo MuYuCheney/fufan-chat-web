@@ -22,7 +22,8 @@ const chatRecordsRef = ref<HTMLDivElement | null>(null)
 const inputValue = ref<string>("")
 let chatId: number = 0
 let pasue: boolean = true
-// let i = 0
+let answer: string = ""
+let i = 0
 
 // 滚动到底部
 function onScrollBottom() {
@@ -35,30 +36,27 @@ function onScrollBottom() {
 }
 
 // 模拟AI输出逐字返回
-async function getContent(val: string) {
-  return new Promise((resolve) => {
+async function getContent(val: string, id: number): Promise<{ id: number; text: string } | undefined> {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(val)
+      pasue ? reject() : resolve({ id, text: val })
     }, 60)
   })
 }
 
 // 回答逐字渲染
-async function onAnswer(answer: string) {
-  let i = 0
-  let text = pasue ? undefined : answer[i]
-  while (text !== undefined) {
-    if (pasue) {
-      break
+async function onAnswer() {
+  if (pasue) return
+  const res = await getContent(answer[i], chatId)
+  chatRecords.value.map(async (item) => {
+    if (item[1].id === res?.id && res.text) {
+      item[1].content += res.text
     }
-    const res = await getContent(text)
-    chatRecords.value.map(async (item) => {
-      if (item[1].id === chatId && text) {
-        item[1].content += res
-        text = answer[++i]
-        onScrollBottom()
-      }
-    })
+  })
+  onScrollBottom()
+  if (!pasue && answer[i + 1]) {
+    i += 1
+    onAnswer()
   }
 }
 
@@ -84,13 +82,13 @@ function onSend(val: string) {
     }
   ])
   onScrollBottom()
-  const answer = `有什么可以帮你的吗 ${val} 访问密码不正确或为空，请前往登录页输入正确的访问密码，或者在设置页填入你自己的 OpenAI API Key。`
+  i = 0
+  answer = `有什么可以帮你的吗 ${val} 访问密码不正确或为空，请前往登录页输入正确的访问密码，或者在设置页填入你自己的 OpenAI API Key。`
   pasue = false
-  // i = 0
-  onAnswer(answer)
+  onAnswer()
 }
 
-// 推出登陆
+// 退出登陆
 function logout() {
   userStore.logout()
   router.push("/login")
