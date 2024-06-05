@@ -88,6 +88,7 @@ function onChangeChat(id: number) {
   chatHistoryId = id
   chatRecords.value = chatRecordsMap.get(id) || []
   inputValue.value = ""
+  onScrollBottom()
 }
 
 // 将内部方法暴露给外部
