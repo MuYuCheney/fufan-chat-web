@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue"
+import { ref, reactive, onMounted } from "vue"
 import { Plus, Edit, Delete } from "@element-plus/icons-vue"
 import { ElMessage, ElMessageBox } from "element-plus"
 // import { useUserStore } from "@/store/modules/user"
@@ -17,12 +17,9 @@ interface Props {
 // const userStore = useUserStore()
 const props = defineProps<Props>()
 const historyListUlRef = ref<HTMLDivElement | null>(null)
-const historys = ref<IHistoryItem[]>([
-  { id: 1, name: "新对话新对话新对话新对话" },
-  { id: 2, name: "新对话" }
-])
+const historys = ref<IHistoryItem[]>([{ id: 1, name: "新对话" }])
 const hoverId = ref<number>()
-const selectId = ref<number>(1)
+const selectId = ref<number>()
 const editChatInfo = reactive<IHistoryItem>({
   id: 0,
   name: ""
@@ -108,6 +105,11 @@ function onSaveChatTitle() {
   })
   onCloseEditChatTitleDialog()
 }
+
+// 挂载后做选中操作
+onMounted(() => {
+  historys.value[0] && onClickChatHistory(historys.value[0].id)
+})
 </script>
 
 <template>
