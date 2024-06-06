@@ -1,13 +1,34 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, onMounted, watch } from "vue"
+import { useRoute } from "vue-router"
+
+const activeIndex = ref<string>("")
+const route = useRoute()
+
+onMounted(() => {
+  setActiveIndex()
+})
+
+watch(
+  () => route.path,
+  () => {
+    setActiveIndex()
+  }
+)
+
+function setActiveIndex() {
+  activeIndex.value = route.path
+}
+</script>
 
 <template>
   <el-container class="app-chat-container">
-    <el-menu collapse default-active="1">
-      <el-menu-item index="1">
+    <el-menu collapse :default-active="activeIndex" router>
+      <el-menu-item index="/chat">
         <el-icon><ChatLineRound /></el-icon>
-        <template #chat>对话</template>
+        <template #title>对话</template>
       </el-menu-item>
-      <el-menu-item index="2" disabled>
+      <el-menu-item index="/chatparams">
         <el-icon><SetUp /></el-icon>
         <template #title>对话参数</template>
       </el-menu-item>
