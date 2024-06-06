@@ -24,14 +24,20 @@ function onSelectChatHistory(id: number) {
 <template>
   <div class="app-chat">
     <el-container class="layout-container">
-      <el-menu>
+      <el-menu collapse default-active="1">
         <el-menu-item index="1">
-          <el-icon><Avatar /></el-icon>
-          <!-- <span>Navigator</span> -->
+          <!-- <el-icon><ChatRound /></el-icon> -->
+          <!-- <el-icon><ChatSquare /></el-icon> -->
+          <el-icon><ChatLineRound /></el-icon>
+          <!-- <el-icon><ChatLineSquare /></el-icon> -->
+          <!-- <el-icon><Comment /></el-icon> -->
+          <template #title>对话</template>
         </el-menu-item>
-        <el-menu-item index="2">
-          <el-icon><document /></el-icon>
-          <!-- <span>Navigator Three</span> -->
+        <el-menu-item index="2" disabled>
+          <el-icon><SetUp /></el-icon>
+          <!-- <el-icon><Setting /></el-icon> -->
+          <!-- <el-icon><Tools /></el-icon> -->
+          <template #title>对话参数</template>
         </el-menu-item>
       </el-menu>
       <el-aside width="268px" class="layout-aside">
