@@ -55,7 +55,7 @@ watchEffect(() => {
     <!-- 混合模式 -->
     <LeftTopMode v-else-if="isLeftTop" />
     <!-- 右侧设置面板 -->
-    <RightPanel v-if="showSettings">
+    <RightPanel v-if="showSettings && !isChat">
       <Settings />
     </RightPanel>
   </div>
