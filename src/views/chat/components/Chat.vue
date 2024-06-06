@@ -24,6 +24,16 @@ function onSelectChatHistory(id: number) {
 <template>
   <div class="app-chat">
     <el-container class="layout-container">
+      <el-menu>
+        <el-menu-item index="1">
+          <el-icon><Avatar /></el-icon>
+          <!-- <span>Navigator</span> -->
+        </el-menu-item>
+        <el-menu-item index="2">
+          <el-icon><document /></el-icon>
+          <!-- <span>Navigator Three</span> -->
+        </el-menu-item>
+      </el-menu>
       <el-aside width="268px" class="layout-aside">
         <ChatHistory :onSelectChatHistory="onSelectChatHistory" />
         <el-button @click="logout" class="logout-btn">退出登陆</el-button>
