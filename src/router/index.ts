@@ -65,7 +65,7 @@ export const constantRoutes: RouteRecordRaw[] = [
   // AI Chat
   {
     path: "/",
-    // component: Layouts,
+    component: Layouts,
     redirect: "/chat",
     children: [
       {

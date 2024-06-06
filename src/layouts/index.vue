@@ -9,6 +9,7 @@ import { useLayoutMode } from "@/hooks/useLayoutMode"
 import LeftMode from "./LeftMode.vue"
 import TopMode from "./TopMode.vue"
 import LeftTopMode from "./LeftTopMode.vue"
+import ChatLayout from "./ChatLayout.vue"
 import { Settings, RightPanel } from "./components"
 import { getCssVariableValue, setCssVariableValue } from "@/utils"
 
@@ -17,7 +18,7 @@ useResize()
 
 const { setWatermark, clearWatermark } = useWatermark()
 const { isMobile } = useDevice()
-const { isLeft, isTop, isLeftTop } = useLayoutMode()
+const { isChat, isLeft, isTop, isLeftTop } = useLayoutMode()
 const settingsStore = useSettingsStore()
 const { showSettings, showTagsView, showWatermark, showGreyMode, showColorWeakness } = storeToRefs(settingsStore)
 
@@ -46,8 +47,9 @@ watchEffect(() => {
 
 <template>
   <div :class="classes">
+    <ChatLayout v-if="isChat" />
     <!-- 左侧模式 -->
-    <LeftMode v-if="isLeft || isMobile" />
+    <LeftMode v-else-if="isLeft || isMobile" />
     <!-- 顶部模式 -->
     <TopMode v-else-if="isTop" />
     <!-- 混合模式 -->

@@ -35,7 +35,7 @@ export interface LayoutSettings {
 
 /** 默认配置 */
 const defaultSettings: LayoutSettings = {
-  layoutMode: LayoutModeEnum.Left,
+  layoutMode: LayoutModeEnum.Chat,
   showSettings: true,
   showTagsView: true,
   fixedHeader: true,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted } from "vue"
+import { ref, reactive, onMounted, nextTick } from "vue"
 import { Plus, Edit, Delete } from "@element-plus/icons-vue"
 import { ElMessage, ElMessageBox } from "element-plus"
 // import { useUserStore } from "@/store/modules/user"
@@ -33,6 +33,16 @@ function onClickChatHistory(id: number) {
   props.onSelectChatHistory?.(id)
 }
 
+// 滚动到顶部
+function onScrollTop() {
+  nextTick(() => {
+    if (!historyListUlRef.value) {
+      return
+    }
+    historyListUlRef.value.scrollTop = 0
+  })
+}
+
 // 新建对话
 function onCreateNewChat() {
   const newChatId = new Date().getTime() + historys.value.length + 1
@@ -41,13 +51,7 @@ function onCreateNewChat() {
     name: "新对话"
   })
   onClickChatHistory(newChatId)
-  // 滚动到底部
-  // nextTick(() => {
-  //   if (!historyListUlRef.value) {
-  //     return
-  //   }
-  //   historyListUlRef.value.scrollTop = historyListUlRef.value.scrollHeight
-  // })
+  onScrollTop()
 }
 
 // 删除历史对话
@@ -60,7 +64,7 @@ function onDeleteChatHistory(id: number) {
   // 若当前选中被删除则默认选中第一项并回到顶部
   if (id === selectId.value && historys.value.length) {
     onClickChatHistory(historys.value[0].id)
-    historyListUlRef.value && (historyListUlRef.value.scrollTop = 0)
+    onScrollTop()
   }
 }
 
