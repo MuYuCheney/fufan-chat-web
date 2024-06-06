@@ -1,19 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import { useRouter } from "vue-router"
-import { useUserStore } from "@/store/modules/user"
 import ChatHistory from "./ChatHistory.vue"
 import ChatRecords from "./ChatRecords.vue"
 
-const router = useRouter()
-const userStore = useUserStore()
 const chatRecordsRef = ref(null)
-
-// 退出登陆
-function logout() {
-  userStore.logout()
-  router.push("/login")
-}
 
 // 选中历史对话聊天
 function onSelectChatHistory(id: number) {
@@ -24,7 +14,6 @@ function onSelectChatHistory(id: number) {
 <template>
   <el-aside width="268px" class="layout-aside">
     <ChatHistory :onSelectChatHistory="onSelectChatHistory" />
-    <el-button @click="logout" class="logout-btn">退出登陆</el-button>
   </el-aside>
   <el-container>
     <el-main class="layout-main">
@@ -40,9 +29,6 @@ $btn-width-percent-100: 100%;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  .logout-btn {
-    width: $btn-width-percent-100;
-  }
 }
 
 .layout-main {

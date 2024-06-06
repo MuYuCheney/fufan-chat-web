@@ -1,8 +1,18 @@
 <script lang="ts" setup>
 import { ref } from "vue"
+import { useRouter } from "vue-router"
+import { useUserStore } from "@/store/modules/user"
 
+const router = useRouter()
+const userStore = useUserStore()
 const temperature = ref<number>(0.7)
 const chatNum = ref<number>(3)
+
+// 退出登陆
+function logout() {
+  userStore.logout()
+  router.push("/login")
+}
 </script>
 
 <template>
@@ -25,12 +35,18 @@ const chatNum = ref<number>(3)
     <div>
       <el-input-number v-model="chatNum" :min="1" :max="10" />
     </div>
+    <el-button @click="logout" class="logout-btn">退出登陆</el-button>
   </div>
 </template>
 
 <style lang="scss" scoped>
+$btn-width-percent-100: 100%;
+
 .chat-prams-container {
   font-size: 14px;
+  position: relative;
+  height: 100%;
+  overflow: auto;
 
   > label {
     display: inline-block;
@@ -43,6 +59,13 @@ const chatNum = ref<number>(3)
     &:nth-of-type(1) {
       margin-top: 0;
     }
+  }
+
+  .logout-btn {
+    width: $btn-width-percent-100;
+    margin-top: 24px;
+    // position: sticky;
+    // bottom: 0;
   }
 }
 </style>
