@@ -1,9 +1,9 @@
-import { request } from "@/utils/service"
+import { requestV1 } from "@/utils/service"
 import type * as Login from "./types/login"
 
 /** 获取登录验证码 */
 export function getLoginCodeApi() {
-  return request<Login.LoginCodeResponseData>({
+  return requestV1<Login.LoginCodeResponseData>({
     url: "login/code",
     method: "get"
   })
@@ -11,7 +11,7 @@ export function getLoginCodeApi() {
 
 /** 登录并返回 Token */
 export function loginApi(data: Login.LoginRequestData) {
-  return request<Login.LoginResponseData>({
+  return requestV1<Login.LoginResponseData>({
     url: "users/login",
     method: "post",
     data
@@ -20,7 +20,7 @@ export function loginApi(data: Login.LoginRequestData) {
 
 /** 获取用户详情 */
 export function getUserInfoApi() {
-  return request<Login.UserInfoResponseData>({
+  return requestV1<Login.UserInfoResponseData>({
     url: "users/info",
     method: "get"
   })

@@ -25,7 +25,7 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
       /** 设置 host: true 才可以使用 Network 的形式，以 IP 访问项目 */
       host: true, // host: "0.0.0.0"
       /** 端口号 */
-      port: 3333,
+      port: 8000,
       /** 是否自动打开浏览器 */
       open: false,
       /** 跨域设置允许 */
@@ -37,6 +37,12 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
         "/api/v1": {
           target: "https://mock.mengxuegu.com/mock/63218b5fb4c53348ed2bc212",
           ws: true,
+          /** 是否允许跨域 */
+          changeOrigin: true
+        },
+        "/api": {
+          target: "/",
+          ws: false,
           /** 是否允许跨域 */
           changeOrigin: true
         }

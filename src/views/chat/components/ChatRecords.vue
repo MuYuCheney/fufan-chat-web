@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, nextTick, defineExpose } from "vue"
 import QuillEditor from "@/components/RichTextEditor/index.vue"
+import { useChatStore } from "@/store/modules/chat"
 import ChatRecord from "./ChatRecord.vue"
 import type { TChatRecordItem } from "./ChatRecord.vue"
 import { EChatType } from "./Enum"
 
+const chatStore = useChatStore()
 const chatRecordsMap: Map<number, TChatRecordItem[]> = new Map()
 
 const chatRecords = ref<TChatRecordItem[]>([])
@@ -56,6 +58,11 @@ function onSend(val: string) {
   if (!val.trim()) {
     return
   }
+  chatStore.chat({
+    query: val,
+    conversation_id: "conv456",
+    conversation_name: "学习对话"
+  } as any)
   pasue = true
   const id = ++chatId
   chatRecords.value.push([
