@@ -27,6 +27,7 @@ function createService() {
       const apiData = response.data
       // 二进制数据则直接返回
       const responseType = response.request?.responseType
+      console.info(responseType, "responseType")
       if (responseType === "blob" || responseType === "arraybuffer") return apiData
       // 这个 code 是和后端约定的业务 code
       const code = apiData.code
@@ -39,6 +40,9 @@ function createService() {
         case 0:
           // 本系统采用 code === 0 来表示没有业务错误
           return apiData
+        // case 200:
+        //   // 非本系统采用 code === 200 来表示没有业务错误
+        //   return apiData
         case 401:
           // Token 过期时
           return logout()
@@ -126,8 +130,8 @@ function createRequest(service: AxiosInstance) {
         Authorization: token ? `Bearer ${token}` : undefined,
         "Content-Type": "application/json"
       },
-      timeout: 5000,
-      baseURL: import.meta.env.VITE_DEV_BASE_API,
+      timeout: 60000,
+      // baseURL: import.meta.env.VITE_DEV_BASE_API,
       data: {}
     }
     // 将默认配置 defaultConfig 和传入的自定义配置 config 进行合并成为 mergeConfig

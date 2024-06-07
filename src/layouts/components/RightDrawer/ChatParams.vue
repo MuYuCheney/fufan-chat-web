@@ -22,12 +22,14 @@ function logout() {
       <el-option key="LLM" label="LLM对话" value="LLM" />
     </el-select>
     <label>请选择LLM模型</label>
-    <el-select model-value="zhipu-api（Running）">
-      <el-option key="zhipu-api（Running）" label="zhipu-api（Running）" value="zhipu-api（Running）" />
+    <el-select v-model="chatStore.model_name">
+      <el-option key="zhipu-api" label="zhipu-api" value="zhipu-api" />
+      <el-option key="chatglm3-6b" label="chatglm3-6b" value="chatglm3-6b" />
     </el-select>
     <label>请选择Prompt模版</label>
-    <el-select model-value="default">
-      <el-option key="default" label="default" :value="chatStore.prompt_name" />
+    <el-select v-model="chatStore.prompt_name">
+      <el-option key="default" label="default" value="default" />
+      <el-option key="llm_chat" label="llm_chat" value="llm_chat" />
     </el-select>
     <label>Temperature</label>
     <el-slider v-model="chatStore.temperature" :min="0" :max="2.0" :step="0.1" :marks="{ 0: '0', 2.0: '2.0' }" />
