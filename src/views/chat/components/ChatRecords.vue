@@ -7,12 +7,12 @@ import type { TChatRecordItem } from "./ChatRecord.vue"
 import { EChatType } from "./Enum"
 
 const chatStore = useChatStore()
-const chatRecordsMap: Map<number, TChatRecordItem[]> = new Map()
+const chatRecordsMap: Map<string, TChatRecordItem[]> = new Map()
 
 const chatRecords = ref<TChatRecordItem[]>([])
 const chatRecordsRef = ref<HTMLDivElement | null>(null)
 const inputValue = ref<string>("")
-let chatHistoryId = 0
+let chatHistoryId = ""
 let chatId: number = 0
 let pasue: boolean = true
 let answer: string = ""
@@ -60,20 +60,21 @@ function onSend(val: string) {
   }
   chatStore.chat({
     query: val,
-    conversation_id: "conv456",
-    conversation_name: "学习对话"
+    conversation_id: chatHistoryId,
+    conversation_name: "学习对话",
+    history: chatRecordsMap.get(chatHistoryId) // [{ role: "user", content: "你好" }]
   } as any)
   pasue = true
   const id = ++chatId
   chatRecords.value.push([
     {
-      type: EChatType.USER,
+      role: EChatType.USER,
       id,
       time: new Date().getTime().toString(),
       content: val
     },
     {
-      type: EChatType.SYSTEM,
+      role: EChatType.SYSTEM,
       id,
       time: new Date().getTime().toString(),
       content: ""
@@ -87,7 +88,7 @@ function onSend(val: string) {
 }
 
 // 切换聊天&缓存之前的聊天
-function onChangeChat(id: number) {
+function onChangeChat(id: string) {
   answerIndex = 0
   answer = ""
   pasue = true

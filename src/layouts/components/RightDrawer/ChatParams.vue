@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { ref } from "vue"
+// import { ref } from "vue"
 import { useRouter } from "vue-router"
 import { useUserStore } from "@/store/modules/user"
+import { useChatStore } from "@/store/modules/chat"
 
 const router = useRouter()
 const userStore = useUserStore()
-const temperature = ref<number>(0.7)
-const chatNum = ref<number>(3)
+const chatStore = useChatStore()
 
 // 退出登陆
 function logout() {
@@ -27,13 +27,13 @@ function logout() {
     </el-select>
     <label>请选择Prompt模版</label>
     <el-select model-value="default">
-      <el-option key="default" label="default" value="default" />
+      <el-option key="default" label="default" :value="chatStore.prompt_name" />
     </el-select>
     <label>Temperature</label>
-    <el-slider v-model="temperature" :min="0" :max="2.0" :step="0.1" :marks="{ 0: '0', 2.0: '2.0' }" />
+    <el-slider v-model="chatStore.temperature" :min="0" :max="2.0" :step="0.1" :marks="{ 0: '0', 2.0: '2.0' }" />
     <label>历史对话轮数</label>
     <div>
-      <el-input-number v-model="chatNum" :min="1" :max="10" />
+      <el-input-number v-model="chatStore.history_len" :min="1" :max="10" />
     </div>
     <el-button @click="logout" class="logout-btn">退出登陆</el-button>
   </div>

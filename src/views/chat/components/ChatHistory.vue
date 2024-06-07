@@ -6,28 +6,28 @@ import { ElMessage, ElMessageBox } from "element-plus"
 // import { EChatType } from "./Enum"
 
 interface IHistoryItem {
-  id: number
+  id: string
   name: string
 }
 
 interface Props {
-  onSelectChatHistory?(id: number): void
+  onSelectChatHistory?(id: string, name?: string): void
 }
 
 // const userStore = useUserStore()
 const props = defineProps<Props>()
 const historyListUlRef = ref<HTMLDivElement | null>(null)
-const historys = ref<IHistoryItem[]>([{ id: 1, name: "新对话" }])
-const hoverId = ref<number>()
-const selectId = ref<number>()
+const historys = ref<IHistoryItem[]>([{ id: "conv456", name: "学习对话" }])
+const hoverId = ref<string>()
+const selectId = ref<string>()
 const editChatInfo = reactive<IHistoryItem>({
-  id: 0,
+  id: "",
   name: ""
 })
 const dialogVisible = ref<boolean>(false)
 
 // 点击聊天历史
-function onClickChatHistory(id: number) {
+function onClickChatHistory(id: string) {
   if (id === selectId.value) return
   selectId.value = id
   props.onSelectChatHistory?.(id)
@@ -45,7 +45,7 @@ function onScrollTop() {
 
 // 新建对话
 function onCreateNewChat() {
-  const newChatId = new Date().getTime() + historys.value.length + 1
+  const newChatId = (new Date().getTime() + historys.value.length + 1).toString()
   historys.value.unshift({
     id: newChatId,
     name: "新对话"
@@ -55,7 +55,7 @@ function onCreateNewChat() {
 }
 
 // 删除历史对话
-function onDeleteChatHistory(id: number) {
+function onDeleteChatHistory(id: string) {
   historys.value = historys.value.filter((item) => item.id !== id)
   ElMessage({
     type: "success",
@@ -69,7 +69,7 @@ function onDeleteChatHistory(id: number) {
 }
 
 // 删除确认
-function onConfirmDeleteChatHistroy(id: number) {
+function onConfirmDeleteChatHistroy(id: string) {
   if (historys.value.length === 1) {
     ElMessage({
       type: "warning",
@@ -91,7 +91,7 @@ function onOpenEditChatTitleDialog(chatInfo: IHistoryItem) {
 
 // 关闭编辑弹框
 function onCloseEditChatTitleDialog() {
-  editChatInfo.id = 0
+  editChatInfo.id = ""
   editChatInfo.name = ""
   dialogVisible.value = false
 }

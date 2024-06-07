@@ -4,7 +4,7 @@ import systemPhoto from "@/assets/layouts/icons8-chatgpt-96.png"
 import { EChatType } from "./Enum"
 
 export interface IChatRecord {
-  type: EChatType
+  role: EChatType
   id: number
   content: string
   time: string
@@ -21,18 +21,18 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div :class="{ 'chat-record': true, 'chat-question': props.data[0].type === EChatType.USER }">
-    <el-avatar :size="24" :src="props.data[0].type === 'USER' ? userStore.photo : systemPhoto"
-      >{{ data[0].type === "USER" ? userStore.username?.[0] : EChatType.SYSTEM }}
+  <div :class="{ 'chat-record': true, 'chat-question': props.data[0].role === EChatType.USER }">
+    <el-avatar :size="24" :src="props.data[0].role === EChatType.USER ? userStore.photo : systemPhoto"
+      >{{ data[0].role === EChatType.USER ? userStore.username?.[0] : EChatType.SYSTEM }}
     </el-avatar>
     <div class="chat-content">
       <el-text type="info" class="time">{{ props.data[0].time }}</el-text>
       {{ props.data[0].content }}
     </div>
   </div>
-  <div :class="{ 'chat-record': true, 'chat-question': props.data[1].type === EChatType.USER }">
-    <el-avatar :size="24" :src="props.data[1].type === 'USER' ? userStore.photo : systemPhoto"
-      >{{ data[1].type === "USER" ? userStore.username?.[0] : EChatType.SYSTEM }}
+  <div :class="{ 'chat-record': true, 'chat-question': props.data[1].role === EChatType.USER }">
+    <el-avatar :size="24" :src="props.data[1].role === EChatType.USER ? userStore.photo : systemPhoto"
+      >{{ data[1].role === EChatType.USER ? userStore.username?.[0] : EChatType.SYSTEM }}
     </el-avatar>
     <div class="chat-content">
       <el-text type="info" class="time">{{ props.data[1].time }}</el-text>

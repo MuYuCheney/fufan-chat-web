@@ -6,7 +6,9 @@ import { chatApi } from "@/api/chat"
 import { type ChatRequestData } from "@/api/chat/types/chat"
 
 export const useChatStore = defineStore("chat", () => {
-  const message_id = ref<string>("")
+  const history_len = ref<number>(5)
+  const temperature = ref<number>(0.8)
+  const prompt_name = ref<string>("default")
 
   const userStore = useUserStore()
 
@@ -15,19 +17,17 @@ export const useChatStore = defineStore("chat", () => {
     const { data } = await chatApi({
       ...params,
       user_id: userStore.username,
-      history_len: 5,
-      history: [{ role: "user", content: "你好" }],
+      history_len: history_len.value,
       stream: false,
       model_name: "chatglm3-6b",
-      temperature: 0.8,
+      temperature: temperature.value,
       max_tokens: 1024,
-      prompt_name: "default"
+      prompt_name: prompt_name.value
     } as ChatRequestData)
-    message_id.value = data.message_id
     return data
   }
 
-  return { chat }
+  return { chat, history_len, temperature, prompt_name }
 })
 
 /** 在 setup 外使用 */
