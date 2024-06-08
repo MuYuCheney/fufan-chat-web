@@ -2,6 +2,7 @@
 import { ref, nextTick, defineExpose } from "vue"
 import QuillEditor from "@/components/RichTextEditor/index.vue"
 import { useChatStore } from "@/store/modules/chat"
+import { type ChatRequestData } from "@/api/chat/types/chat"
 import ChatRecord from "./ChatRecord.vue"
 import type { TChatRecordItem } from "./ChatRecord.vue"
 import { EChatType } from "./Enum"
@@ -67,7 +68,7 @@ function onSend(val: string) {
     conversation_id: chatHistoryId,
     conversation_name: "学习对话",
     history: chatRecordsMap.get(chatHistoryId) // [{ role: "user", content: "你好" }]
-  } as any)
+  } as ChatRequestData)
   pasue = true
   const id = ++chatId
   chatRecords.value.push([
