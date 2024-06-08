@@ -6,6 +6,10 @@ import ChatRecord from "./ChatRecord.vue"
 import type { TChatRecordItem } from "./ChatRecord.vue"
 import { EChatType } from "./Enum"
 
+interface IDefineExposeProps {
+  onChangeChat(id: string): void
+}
+
 const chatStore = useChatStore()
 const chatRecordsMap: Map<string, TChatRecordItem[]> = new Map()
 
@@ -100,7 +104,7 @@ function onChangeChat(id: string) {
 }
 
 // 将内部方法暴露给外部
-defineExpose({
+defineExpose<IDefineExposeProps>({
   onChangeChat
 })
 </script>
