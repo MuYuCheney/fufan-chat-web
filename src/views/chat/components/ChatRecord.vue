@@ -5,7 +5,7 @@ import { EChatType } from "./Enum"
 
 export interface IChatRecord {
   role: EChatType
-  id: number
+  message_id: string
   content: string
   time: string
 }
@@ -27,7 +27,9 @@ const props = defineProps<Props>()
     </el-avatar>
     <div class="chat-content">
       <el-text type="info" class="time">{{ props.data[0].time }}</el-text>
-      {{ props.data[0].content }}
+      <pre>
+        {{ props.data[0].content }}
+      </pre>
     </div>
   </div>
   <div :class="{ 'chat-record': true, 'chat-question': props.data[1].role === EChatType.USER }">
@@ -36,7 +38,10 @@ const props = defineProps<Props>()
     </el-avatar>
     <div class="chat-content">
       <el-text type="info" class="time">{{ props.data[1].time }}</el-text>
-      {{ props.data[1].content }}
+      <!-- {{ props.data[1].content }} -->
+      <pre>
+        {{ props.data[1].content }}
+      </pre>
     </div>
   </div>
 </template>
@@ -68,6 +73,12 @@ const props = defineProps<Props>()
 
     &:hover .time {
       display: block;
+    }
+
+    pre {
+      overflow: hidden;
+      white-space: pre-line;
+      margin: 0 auto;
     }
   }
 }

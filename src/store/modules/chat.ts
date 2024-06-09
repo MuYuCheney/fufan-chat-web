@@ -15,7 +15,7 @@ export const useChatStore = defineStore("chat", () => {
 
   /** 对话 */
   const chat = async (params: ChatRequestData) => {
-    const { data } = await chatApi({
+    const data = await chatApi({
       ...params,
       user_id: "id_muyu", // userStore.username,
       history_len: history_len.value,
@@ -25,7 +25,15 @@ export const useChatStore = defineStore("chat", () => {
       max_tokens: 1024,
       prompt_name: prompt_name.value
     } as ChatRequestData)
-    return data
+    try {
+      if (typeof data === "string") {
+        const str = data.replace("data: ", "")
+        return JSON.parse(str)
+      }
+    } catch (err) {
+      console.error(err)
+      return null
+    }
   }
 
   return { chat, history_len, model_name, temperature, prompt_name }
