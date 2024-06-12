@@ -6,7 +6,6 @@ import QuillEditor from "@/components/RichTextEditor/index.vue"
 import ChatRecord from "./ChatRecord.vue"
 import type { TChatRecordItem } from "./ChatRecord.vue"
 import { EChatType } from "./Enum"
-// import EventSourceService from "@/utils/eventSourceService"
 import { fetchEventSource } from "@microsoft/fetch-event-source"
 
 interface IDefineExposeProps {
@@ -20,9 +19,6 @@ const chatRecords = ref<TChatRecordItem[]>([])
 const chatRecordsRef = ref<HTMLDivElement | null>(null)
 const inputValue = ref<string>("")
 let chatHistoryId = ""
-// let pasue: boolean = true
-// let answer: string = ""
-// let answerIndex = 0
 
 // 滚动到底部
 function onScrollBottom() {
@@ -34,73 +30,12 @@ function onScrollBottom() {
   })
 }
 
-// 模拟AI输出逐字返回
-// async function getContent(val: string, message_id: string): Promise<{ message_id: string; text: string } | undefined> {
-//   return new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//       pasue ? reject() : resolve({message_id, text: val})
-//     }, 60)
-//   })
-// }
-
-// 回答逐字渲染
-// async function onAnswer(message_id: string) {
-//   if (pasue) return
-//   const res = await getContent(answer[answerIndex], message_id)
-//   chatRecords.value.map(async (item) => {
-//     if (res && (item[1].message_id === res?.message_id || item[1].message_id === "") && res.text) {
-//       item[1].content += res.text
-//       item[0].message_id = res.message_id
-//       item[1].message_id = res.message_id
-//     }
-//   })
-//   onScrollBottom()
-//   if (!pasue && answer[answerIndex + 1]) {
-//     answerIndex += 1
-//     onAnswer(message_id)
-//   }
-// }
-
-// 发送消息
-// async function onSend(val: string) {
-//   if (!val.trim()) {
-//     return
-//   }
-//   pasue = true
-//   chatRecords.value.push([
-//     {
-//       role: EChatType.USER,
-//       message_id: "",
-//       time: new Date().getTime().toString(),
-//       content: val
-//     },
-//     {
-//       role: EChatType.SYSTEM,
-//       message_id: "",
-//       time: new Date().getTime().toString(),
-//       content: ""
-//     }
-//   ])
-//   onScrollBottom()
-//   const data = await chatStore.chat({
-//     query: val,
-//     conversation_id: chatHistoryId,
-//     conversation_name: "学习对话",
-//     history: chatRecordsMap.get(chatHistoryId) // [{ role: "user", content: "你好" }]
-//   } as ChatRequestData)
-//   answerIndex = 0
-//   answer = data.text
-//   // answer = `有什么可以帮你的吗 ${val} 访问密码不正确或为空，请前往登录页输入正确的访问密码，或者在设置页填入你自己的 OpenAI API Key。`
-//   pasue = false
-//   onAnswer(data.message_id)
-// }
-
 // 发送消息
 async function onSend1(val: string) {
   if (!val.trim()) {
     return
   }
-  pasue = true
+  // pasue = true
   chatRecords.value.push([
     {
       role: EChatType.USER,
@@ -152,9 +87,6 @@ async function onSend1(val: string) {
 
 // 切换聊天&缓存之前的聊天
 function onChangeChat(id: string) {
-  answerIndex = 0
-  answer = ""
-  pasue = true
   chatHistoryId && chatRecordsMap.set(chatHistoryId, chatRecords.value)
   chatHistoryId = id
   chatRecords.value = chatRecordsMap.get(id) || []
