@@ -7,7 +7,7 @@ import { type ChatRequestData } from "@/api/chat/types/chat"
 
 export const useChatStore = defineStore("chat", () => {
   const history_len = ref<number>(3)
-  const model_name = ref<string>("zhipu-api") // zhipu-api | chatglm3-6b
+  const model_name = ref<string>("chatglm3-6b") // zhipu-api | chatglm3-6b
   const temperature = ref<number>(0.8)
   const prompt_name = ref<string>("llm_chat")
 
