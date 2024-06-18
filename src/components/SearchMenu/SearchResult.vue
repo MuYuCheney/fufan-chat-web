@@ -8,7 +8,7 @@ interface Props {
 }
 
 interface IDefineExposeProps {
-  getScrollTop(index: number): void
+  getScrollTop(index: number): number
 }
 
 /** 选中的菜单 */
