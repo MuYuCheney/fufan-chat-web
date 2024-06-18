@@ -4,7 +4,8 @@ export interface IMessageData {
 
 export interface ChatFetchEventOptions {
   onmessage(data: IMessageData): Promise<void>
-  onerror?(error: string): Promise<void>
+  onerror?(error: string): void
+  onclose?(): void
 }
 
 export interface ChatRequestData {

@@ -25,7 +25,7 @@ export function chatApi(data: Chat.ChatRequestData, options?: Chat.ChatFetchEven
     body: bodyStr,
     ...options,
     signal: ctrl.signal,
-    onerror: async (err: any) => {
+    onerror(err: any) {
       options?.onerror?.(err)
       ElMessage.error("对话请求发生网络错误或涉及违规话题")
       ctrl.abort()
