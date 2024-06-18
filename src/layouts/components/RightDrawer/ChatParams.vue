@@ -18,8 +18,8 @@ function logout() {
 <template>
   <div class="chat-prams-container">
     <label>请选择对话模式</label>
-    <el-select model-value="LLM">
-      <el-option key="LLM" label="LLM对话" value="LLM" />
+    <el-select model-value="LLM对话">
+      <el-option key="LLM对话" label="LLM对话" value="LLM对话" />
     </el-select>
     <label>请选择LLM模型</label>
     <el-select v-model="chatStore.model_name">

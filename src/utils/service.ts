@@ -27,9 +27,9 @@ function createService() {
       const apiData = response.data
       // 二进制数据则直接返回
       const responseType = response.request?.responseType
-      if (response.request?.responseURL?.indexOf("/api/chat") > -1 && response.request.status === 200) {
-        return apiData
-      }
+      // if (response.request?.responseURL?.indexOf("/api/chat") > -1 && response.request.status === 200) {
+      //   return apiData
+      // }
       if (responseType === "blob" || responseType === "arraybuffer") return apiData
       // 这个 code 是和后端约定的业务 code
       const code = apiData.code
@@ -42,9 +42,6 @@ function createService() {
         case 0:
           // 本系统采用 code === 0 来表示没有业务错误
           return apiData
-        // case 200:
-        //   // 非本系统采用 code === 200 来表示没有业务错误
-        //   return apiData
         case 401:
           // Token 过期时
           return logout()

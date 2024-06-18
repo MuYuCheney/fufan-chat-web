@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { ref, nextTick, defineExpose } from "vue" // onMounted, onBeforeUnmount
 import QuillEditor from "@/components/RichTextEditor/index.vue"
-// import {useChatStore} from "@/store/modules/chat"
-// import {type ChatRequestData} from "@/api/chat/types/chat"
+import { useChatStore } from "@/store/modules/chat"
+import { type ChatRequestData, IMessageData } from "@/api/chat/types/chat"
 import ChatRecord from "./ChatRecord.vue"
 import type { TChatRecordItem } from "./ChatRecord.vue"
 import { EChatType } from "./Enum"
-import { fetchEventSource } from "@microsoft/fetch-event-source"
 
 interface IDefineExposeProps {
   onChangeChat(id: string): void
 }
 
-// const chatStore = useChatStore()
+const chatStore = useChatStore()
 const chatRecordsMap: Map<string, TChatRecordItem[]> = new Map()
 
 const chatRecords = ref<TChatRecordItem[]>([])
@@ -51,27 +50,14 @@ async function onSend1(val: string) {
     }
   ])
   onScrollBottom()
-  const bodyStr = JSON.stringify({
+  const params = {
     query: val,
     conversation_id: "conv456",
     conversation_name: "学习对话",
-    user_id: "admin",
-    history_len: 3,
-    stream: true,
-    // model_name: "chatglm3-6b",
-    model_name: "zhipu-api",
-    temperature: 0.8,
-    max_tokens: 1024,
-    prompt_name: "llm_chat"
-  })
-  fetchEventSource("http://192.168.110.131:8000/api/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: bodyStr,
-    onmessage: async (data) => {
-      console.log(data.data)
+    history: [] as any[]
+  } as ChatRequestData
+  chatStore.chat(params, {
+    onmessage: async (data: IMessageData) => {
       const res = JSON.parse(data.data)
       chatRecords.value.map(async (item) => {
         if (res && (item[1].message_id === res?.message_id || item[1].message_id === "") && res.text) {
