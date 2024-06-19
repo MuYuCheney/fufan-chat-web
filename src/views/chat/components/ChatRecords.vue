@@ -3,21 +3,21 @@ import { ref, nextTick, defineExpose } from "vue" // onMounted, onBeforeUnmount
 import QuillEditor from "@/components/RichTextEditor/index.vue"
 import { useChatStore } from "@/store/modules/chat"
 import { type ChatRequestData, IMessageData } from "@/api/chat/types/chat"
+import { conversationsConversationsIdMessagesApi } from "@/api/conversations"
+import type * as Conversations from "@/api/conversations/types/conversations"
 import ChatRecord from "./ChatRecord.vue"
-import type { TChatRecordItem } from "./ChatRecord.vue"
-import { EChatType } from "./Enum"
 
 interface IDefineExposeProps {
-  onChangeChat(id: string): void
+  onChangeChat(id: string, name: string): void
 }
 
 const chatStore = useChatStore()
-const chatRecordsMap: Map<string, TChatRecordItem[]> = new Map()
 
-const chatRecords = ref<TChatRecordItem[]>([])
+let conversation_id = ""
+let conversation_name = ""
+const chatRecords = ref<Conversations.ConversationsConversationsIdMessagesResponseData[]>([])
 const chatRecordsRef = ref<HTMLDivElement | null>(null)
 const inputValue = ref<string>("")
-let chatHistoryId = ""
 
 // 滚动到底部
 function onScrollBottom() {
@@ -35,35 +35,29 @@ async function onSend1(val: string) {
     return
   }
   // pasue = true
-  chatRecords.value.push([
-    {
-      role: EChatType.USER,
-      message_id: "",
-      time: new Date().getTime().toString(),
-      content: val
-    },
-    {
-      role: EChatType.SYSTEM,
-      message_id: "",
-      time: new Date().getTime().toString(),
-      content: ""
-    }
-  ])
+  const chatRecord: Conversations.ConversationsConversationsIdMessagesResponseData = {
+    id: "", // 消息ID
+    conversation_id, // 会话ID
+    chat_type: "", // 会话类型
+    query: val, // 用户输入
+    response: "", // AI回答
+    create_time: ""
+  }
+  chatRecords.value.push(chatRecord)
   onScrollBottom()
   const params = {
     query: val,
-    conversation_id: "conv456",
-    conversation_name: "学习对话",
+    conversation_id,
+    conversation_name,
     history: [] as any[]
   } as ChatRequestData
   chatStore.chat(params, {
     onmessage: async (data: IMessageData) => {
       const res = JSON.parse(data.data)
       chatRecords.value.map(async (item) => {
-        if (res && (item[1].message_id === res?.message_id || item[1].message_id === "") && res.text) {
-          item[1].content += res.text
-          item[0].message_id = res.message_id
-          item[1].message_id = res.message_id
+        if (res && (item.id === res?.message_id || item.id === "") && res.text) {
+          item.response += res.text
+          item.id = res.message_id
         }
       })
       onScrollBottom()
@@ -72,10 +66,11 @@ async function onSend1(val: string) {
 }
 
 // 切换聊天&缓存之前的聊天
-function onChangeChat(id: string) {
-  chatHistoryId && chatRecordsMap.set(chatHistoryId, chatRecords.value)
-  chatHistoryId = id
-  chatRecords.value = chatRecordsMap.get(id) || []
+async function onChangeChat(id: string, name: string) {
+  conversation_id = id
+  conversation_name = name
+  const res = await conversationsConversationsIdMessagesApi(id)
+  chatRecords.value = res
   inputValue.value = ""
   onScrollBottom()
 }

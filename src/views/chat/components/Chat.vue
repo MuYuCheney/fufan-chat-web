@@ -6,8 +6,8 @@ import ChatRecords from "./ChatRecords.vue"
 const chatRecordsRef = ref(null)
 
 // 选中历史对话聊天
-function onSelectChatHistory(id: string) {
-  chatRecordsRef.value && (chatRecordsRef.value as any).onChangeChat(id)
+function onSelectChatHistory(id: string, name: string) {
+  chatRecordsRef.value && (chatRecordsRef.value as any).onChangeChat(id, name)
 }
 </script>
 

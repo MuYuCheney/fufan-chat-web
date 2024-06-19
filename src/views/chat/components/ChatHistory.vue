@@ -2,35 +2,36 @@
 import { ref, reactive, onMounted, nextTick } from "vue"
 import { Plus, Edit, Delete } from "@element-plus/icons-vue"
 import { ElMessage, ElMessageBox } from "element-plus"
-// import { useUserStore } from "@/store/modules/user"
-// import { EChatType } from "./Enum"
-
-interface IHistoryItem {
-  id: string
-  name: string
-}
+import { usersUserIdConversations } from "@/api/users"
+import type * as Users from "@/api/users/types/users"
+import { conversationsApi } from "@/api/conversations"
+import { useUserStore } from "@/store/modules/user"
 
 interface Props {
   onSelectChatHistory?(id: string, name?: string): void
 }
 
-// const userStore = useUserStore()
+const userStore = useUserStore()
 const props = defineProps<Props>()
 const historyListUlRef = ref<HTMLDivElement | null>(null)
-const historys = ref<IHistoryItem[]>([{ id: "conv456", name: "学习对话" }])
+const historys = ref<Users.UsersUserIdConversationsResponseData[]>([
+  { id: "conv456", name: "学习对话", chat_type: "", create_time: "" }
+])
 const hoverId = ref<string>()
 const selectId = ref<string>()
-const editChatInfo = reactive<IHistoryItem>({
+const editChatInfo = reactive<Users.UsersUserIdConversationsResponseData>({
   id: "",
-  name: ""
+  name: "",
+  chat_type: "",
+  create_time: ""
 })
 const dialogVisible = ref<boolean>(false)
 
 // 点击聊天历史
-function onClickChatHistory(id: string) {
+function onClickChatHistory(id: string, name: string) {
   if (id === selectId.value) return
   selectId.value = id
-  props.onSelectChatHistory?.(id)
+  props.onSelectChatHistory?.(id, name)
 }
 
 // 滚动到顶部
@@ -44,13 +45,17 @@ function onScrollTop() {
 }
 
 // 新建对话
-function onCreateNewChat() {
-  const newChatId = (new Date().getTime() + historys.value.length + 1).toString()
+async function onCreateNewChat() {
+  const name = "新对话"
+  const chat_type = ""
+  const id = await conversationsApi({ user_id: userStore.username, name, chat_type })
   historys.value.unshift({
-    id: newChatId,
-    name: "新对话"
+    id,
+    name,
+    chat_type,
+    create_time: ""
   })
-  onClickChatHistory(newChatId)
+  onClickChatHistory(id, name)
   onScrollTop()
 }
 
@@ -63,7 +68,7 @@ function onDeleteChatHistory(id: string) {
   })
   // 若当前选中被删除则默认选中第一项并回到顶部
   if (id === selectId.value && historys.value.length) {
-    onClickChatHistory(historys.value[0].id)
+    onClickChatHistory(historys.value[0].id, historys.value[0].name)
     onScrollTop()
   }
 }
@@ -83,7 +88,7 @@ function onConfirmDeleteChatHistroy(id: string) {
 }
 
 // 打开编辑弹框
-function onOpenEditChatTitleDialog(chatInfo: IHistoryItem) {
+function onOpenEditChatTitleDialog(chatInfo: Users.UsersUserIdConversationsResponseData) {
   editChatInfo.id = chatInfo.id
   editChatInfo.name = chatInfo.name
   dialogVisible.value = true
@@ -111,8 +116,14 @@ function onSaveChatTitle() {
 }
 
 // 挂载后做选中操作
-onMounted(() => {
-  historys.value[0] && onClickChatHistory(historys.value[0].id)
+onMounted(async () => {
+  const res = await usersUserIdConversations(userStore.username)
+  historys.value = res
+  if (historys.value[0]) {
+    onClickChatHistory(historys.value[0].id, historys.value[0].name)
+  } else {
+    onCreateNewChat()
+  }
 })
 </script>
 
@@ -126,7 +137,7 @@ onMounted(() => {
         :key="item.id"
         @mouseenter="hoverId = item.id"
         @mouseleave="hoverId = undefined"
-        @click="() => onClickChatHistory(item.id)"
+        @click="() => onClickChatHistory(item.id, item.name)"
         :class="{ active: selectId === item.id }"
       >
         <span class="chat-title">{{ item.name }}</span>

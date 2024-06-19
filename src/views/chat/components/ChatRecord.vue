@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useUserStore } from "@/store/modules/user"
+import type * as Conversations from "@/api/conversations/types/conversations"
 import systemPhoto from "@/assets/layouts/icons8-chatgpt-96.png"
 import { EChatType } from "./Enum"
 
@@ -13,7 +14,7 @@ export interface IChatRecord {
 export type TChatRecordItem = [IChatRecord, IChatRecord]
 
 interface Props {
-  data: TChatRecordItem
+  data: Conversations.ConversationsConversationsIdMessagesResponseData
 }
 
 const userStore = useUserStore()
@@ -21,26 +22,22 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div :class="{ 'chat-record': true, 'chat-question': props.data[0].role === EChatType.USER }">
-    <el-avatar :size="24" :src="props.data[0].role === EChatType.USER ? userStore.photo : systemPhoto"
-      >{{ data[0].role === EChatType.USER ? userStore.username?.[0] : EChatType.SYSTEM }}
-    </el-avatar>
+  <div :class="{ 'chat-record': true, 'chat-question': false }">
+    <el-avatar :size="24" :src="userStore.photo">{{ userStore.username?.[0] }} </el-avatar>
     <div class="chat-content">
-      <el-text type="info" class="time">{{ props.data[0].time }}</el-text>
+      <el-text type="info" class="time">{{ props.data.create_time }}</el-text>
       <pre>
-        {{ props.data[0].content }}
+        {{ props.data.query }}
       </pre>
     </div>
   </div>
-  <div :class="{ 'chat-record': true, 'chat-question': props.data[1].role === EChatType.USER }">
-    <el-avatar :size="24" :src="props.data[1].role === EChatType.USER ? userStore.photo : systemPhoto"
-      >{{ data[1].role === EChatType.USER ? userStore.username?.[0] : EChatType.SYSTEM }}
-    </el-avatar>
+  <div :class="{ 'chat-record': true, 'chat-question': true }">
+    <el-avatar :size="24" :src="systemPhoto">{{ EChatType.SYSTEM }} </el-avatar>
     <div class="chat-content">
-      <el-text type="info" class="time">{{ props.data[1].time }}</el-text>
+      <el-text type="info" class="time">{{ props.data.create_time }}</el-text>
       <!-- {{ props.data[1].content }} -->
       <pre>
-        {{ props.data[1].content }}
+        {{ props.data.response }}
       </pre>
     </div>
   </div>
