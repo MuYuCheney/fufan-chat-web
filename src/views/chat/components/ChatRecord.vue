@@ -33,11 +33,14 @@ const props = defineProps<Props>()
   </div>
   <div :class="{ 'chat-record': true, 'chat-question': false }">
     <el-avatar :size="24" :src="systemPhoto">{{ EChatType.SYSTEM }} </el-avatar>
-    <div class="chat-content">
+    <div :class="{ 'chat-content': true, 'chat-error': !props.data.response }">
       <el-text type="info" class="time">{{ props.data.create_time }}</el-text>
       <!-- {{ props.data[1].content }} -->
       <pre>
-        {{ props.data.response }}
+        {{
+          props.data.response ||
+          "An error occurred. If this issue persists please contact us through our help center at fufan.chat.com."
+        }}
       </pre>
     </div>
   </div>
@@ -77,6 +80,10 @@ const props = defineProps<Props>()
       white-space: pre-line;
       margin: 0 auto;
     }
+  }
+
+  .chat-error {
+    color: var(--el-color-danger);
   }
 }
 .chat-question {

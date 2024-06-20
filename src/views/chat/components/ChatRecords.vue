@@ -30,7 +30,7 @@ function onScrollBottom() {
 }
 
 // 发送消息
-async function onSend1(val: string) {
+async function onSend(val: string) {
   if (!val.trim()) {
     return
   }
@@ -39,7 +39,7 @@ async function onSend1(val: string) {
     id: "", // 消息ID
     conversation_id, // 会话ID
     chat_type: "", // 会话类型
-    query: val, // 用户输入
+    query: val.trim(), // 用户输入
     response: "", // AI回答
     create_time: ""
   }
@@ -87,7 +87,7 @@ defineExpose<IDefineExposeProps>({
     <div class="chat-records" ref="chatRecordsRef">
       <ChatRecord v-for="(record, index) in chatRecords" :key="index" :data="record" />
     </div>
-    <QuillEditor class="quill-editor" :value="inputValue" :send="onSend1" />
+    <QuillEditor class="quill-editor" :value="inputValue" :send="onSend" />
   </div>
 </template>
 
