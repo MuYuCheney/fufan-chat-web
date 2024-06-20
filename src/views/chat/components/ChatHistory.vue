@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, nextTick } from "vue"
+import { ref, reactive, onMounted, nextTick, defineExpose } from "vue"
 import { Plus, Edit, Delete } from "@element-plus/icons-vue"
 import { ElMessage, ElMessageBox } from "element-plus"
 import { usersUserIdConversations } from "@/api/users"
@@ -12,11 +12,22 @@ interface Props {
   onSelectChatHistory?(id: string, name?: string): void
 }
 
+export interface IChatHistoryRef {
+  setChatTitle(id: string, name: string): void
+}
+
 const userStore = useUserStore()
 const chatStore = useChatStore()
 const props = defineProps<Props>()
 const historyListUlRef = ref<HTMLDivElement | null>(null)
-const historys = ref<Users.UsersUserIdConversationsResponseData[]>([])
+const historys = ref<Users.UsersUserIdConversationsResponseData[]>([
+  {
+    id: "resId",
+    name: "新对话",
+    chat_type: chatStore.prompt_name,
+    create_time: ""
+  }
+])
 const hoverId = ref<string>()
 const selectId = ref<string>()
 const editChatInfo = reactive<Users.UsersUserIdConversationsResponseData>({
@@ -102,12 +113,17 @@ function onCloseEditChatTitleDialog() {
 }
 
 // 修改聊天标题
-function onSaveChatTitle() {
+function setChatTitle(id: string, name: string) {
   historys.value.map((item) => {
-    if (item.id === editChatInfo.id) {
-      item.name = editChatInfo.name
+    if (item.id === id) {
+      item.name = name
     }
   })
+}
+
+// 保存修改聊天标题
+function onSaveChatTitle() {
+  setChatTitle(editChatInfo.id, editChatInfo.name)
   ElMessage({
     type: "success",
     message: "修改成功"
@@ -117,13 +133,21 @@ function onSaveChatTitle() {
 
 // 挂载后做选中操作
 onMounted(async () => {
-  const res = await usersUserIdConversations(userStore.username)
-  historys.value = res
+  try {
+    const res = await usersUserIdConversations(userStore.username)
+    historys.value = res
+  } catch (err) {
+    console.error(err)
+  }
   if (historys.value[0]) {
     onClickChatHistory(historys.value[0].id, historys.value[0].name)
   } else {
     onCreateNewChat()
   }
+})
+
+defineExpose<IChatHistoryRef>({
+  setChatTitle
 })
 </script>
 
