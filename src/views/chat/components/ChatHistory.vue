@@ -20,14 +20,7 @@ const userStore = useUserStore()
 const chatStore = useChatStore()
 const props = defineProps<Props>()
 const historyListUlRef = ref<HTMLDivElement | null>(null)
-const historys = ref<Users.UsersUserIdConversationsResponseData[]>([
-  {
-    id: "resId",
-    name: "新对话",
-    chat_type: chatStore.prompt_name,
-    create_time: ""
-  }
-])
+const historys = ref<Users.UsersUserIdConversationsResponseData[]>([])
 const hoverId = ref<string>()
 const selectId = ref<string>()
 const editChatInfo = reactive<Users.UsersUserIdConversationsResponseData>({

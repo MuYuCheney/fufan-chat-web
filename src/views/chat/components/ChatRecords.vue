@@ -6,6 +6,7 @@ import { type ChatRequestData, IMessageData } from "@/api/chat/types/chat"
 import { conversationsConversationsIdMessagesApi } from "@/api/conversations"
 import type * as Conversations from "@/api/conversations/types/conversations"
 import ChatRecord from "./ChatRecord.vue"
+import { ElMessage } from "element-plus"
 
 interface Props {
   onSetChatTitle(id: string, name: string): void
@@ -35,6 +36,10 @@ function onScrollBottom() {
 
 // 发送消息
 async function onSend(val: string) {
+  if (!conversation_id) {
+    ElMessage.warning("请先新建对话")
+    return
+  }
   const query = val.trim()
   if (!query) {
     return
