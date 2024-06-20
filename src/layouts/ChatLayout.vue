@@ -36,12 +36,12 @@ function setActiveIndex() {
         <el-icon><SetUp /></el-icon>
         <template #title>对话参数</template>
       </el-menu-item> -->
-      <el-menu-item index="/knowledge" disabled>
+      <el-menu-item index="/knowledge">
         <el-icon><Coin /></el-icon>
         <template #title>知识库</template>
       </el-menu-item>
       <el-divider class="divider" />
-      <el-button :icon="collapse ? Expand : Fold" @click="collapse = !collapse" class="expand-btn" plain type="text" />
+      <el-button :icon="collapse ? Expand : Fold" @click="collapse = !collapse" class="expand-btn" plain />
     </el-menu>
     <!-- component slot -->
     <RightDrawer>
@@ -72,6 +72,7 @@ $btn-width-percent-100: 100%;
     font-size: 20px;
     // margin: auto auto 12px auto;
     margin-bottom: 12px;
+    border: none;
   }
 }
 </style>

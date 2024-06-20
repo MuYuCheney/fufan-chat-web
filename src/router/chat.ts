@@ -14,20 +14,14 @@ export const chatRoutes: RouteRecordRaw[] = [
     redirect: "/chat",
     children: [
       {
-        path: "chat",
+        path: "/chat",
         component: () => import("@/views/chat/index.vue"),
         name: "Chat"
-      }
-    ]
-  },
-  {
-    path: "/chatparams",
-    component: Layouts,
-    children: [
+      },
       {
-        path: "chatparams",
-        component: () => import("@/views/chat-params/index.vue"),
-        name: "ChatParams"
+        path: "/knowledge",
+        component: () => import("@/views/knowledge/index.vue"),
+        name: "Knowledge"
       }
     ]
   }
