@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getCurrentInstance, onBeforeMount, onBeforeUnmount, onMounted, ref } from "vue"
+import { getCurrentInstance, onBeforeMount, onBeforeUnmount, onMounted, ref, defineExpose } from "vue"
 import { type RouteRecordName, type RouteRecordRaw } from "vue-router"
 
 interface Props {
