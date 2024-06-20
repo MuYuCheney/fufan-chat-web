@@ -67,6 +67,7 @@ async function onSend1(val: string) {
 
 // 切换聊天&缓存之前的聊天
 async function onChangeChat(id: string, name: string) {
+  if (!id) return
   conversation_id = id
   conversation_name = name
   const res = await conversationsConversationsIdMessagesApi(id)
