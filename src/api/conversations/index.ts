@@ -3,7 +3,7 @@ import type * as Conversations from "./types/conversations"
 
 /** 新建会话接口 */
 export function conversationsApi(data: Conversations.ConversationsRequestData) {
-  return request<string>({
+  return request<Conversations.ConversationsResponseData>({
     url: "/api/conversations",
     method: "post",
     data

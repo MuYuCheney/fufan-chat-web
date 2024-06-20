@@ -48,14 +48,14 @@ function onScrollTop() {
 async function onCreateNewChat() {
   const name = "新对话"
   const chat_type = chatStore.prompt_name
-  const id = await conversationsApi({ user_id: userStore.username, name, chat_type })
+  const res = await conversationsApi({ user_id: userStore.username, name, chat_type })
   historys.value.unshift({
-    id,
+    id: res.id,
     name,
     chat_type,
     create_time: ""
   })
-  onClickChatHistory(id, name)
+  onClickChatHistory(res.id, name)
   onScrollTop()
 }
 

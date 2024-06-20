@@ -4,6 +4,10 @@ export interface ConversationsRequestData {
   chat_type: string // 会话类型
 }
 
+export interface ConversationsResponseData {
+  id: string
+}
+
 export interface ConversationsConversationsIdMessagesResponseData {
   id: string // 消息ID
   conversation_id: string // 会话ID
