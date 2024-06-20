@@ -22,7 +22,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div :class="{ 'chat-record': true, 'chat-question': false }">
+  <div :class="{ 'chat-record': true, 'chat-question': true }">
     <el-avatar :size="24" :src="userStore.photo">{{ userStore.username?.[0] }} </el-avatar>
     <div class="chat-content">
       <el-text type="info" class="time">{{ props.data.create_time }}</el-text>
@@ -31,7 +31,7 @@ const props = defineProps<Props>()
       </pre>
     </div>
   </div>
-  <div :class="{ 'chat-record': true, 'chat-question': true }">
+  <div :class="{ 'chat-record': true, 'chat-question': false }">
     <el-avatar :size="24" :src="systemPhoto">{{ EChatType.SYSTEM }} </el-avatar>
     <div class="chat-content">
       <el-text type="info" class="time">{{ props.data.create_time }}</el-text>

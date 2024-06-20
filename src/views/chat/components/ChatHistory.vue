@@ -14,9 +14,7 @@ interface Props {
 const userStore = useUserStore()
 const props = defineProps<Props>()
 const historyListUlRef = ref<HTMLDivElement | null>(null)
-const historys = ref<Users.UsersUserIdConversationsResponseData[]>([
-  { id: "conv456", name: "学习对话", chat_type: "", create_time: "" }
-])
+const historys = ref<Users.UsersUserIdConversationsResponseData[]>([])
 const hoverId = ref<string>()
 const selectId = ref<string>()
 const editChatInfo = reactive<Users.UsersUserIdConversationsResponseData>({
